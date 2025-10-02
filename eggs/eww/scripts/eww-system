@@ -1,0 +1,12 @@
+#!/bin/bash
+
+operate=$1
+
+if [[ ${operate} == "lock" ]]; then
+  eww-window toggle system
+  nu -c hyprlock
+elif [[ ${operate} == "restart" ]]; then
+  nu -c reboot
+elif [[ ${operate} == "poweroff" ]]; then
+  nu -c poweroff
+fi

@@ -1,0 +1,62 @@
+[global]
+    monitor = 0
+    follow = none
+    enable_posix_regex = true
+    width = (144, 512)
+    height = (0, 320)
+    notification_limit = 10
+    origin = bottom-right
+    offset = (6, 0)
+    progress_bar = false
+    icon_corner_radius = 8
+    min_icon_size = 24
+    max_icon_size = 256
+    separator_height = 6
+    padding = 12
+    horizontal_padding = 12
+    # text_icon_padding = 12
+    frame_width = 0
+    separator_height = 0
+    gap_size = 6
+    sort = update
+    # line_height = 2
+    idle_threshold = 0
+    font = monospace 13
+    format = "<span font_weight='bold' font_style='italic' color='#00FEB8'>%s</span>\n<small>%b</small>"
+    vertical_alignment = center
+    show_age_threshold = -1
+    browser = "handlr open"
+    always_run_script = true
+    corner_radius = 8
+    override_pause_level = 100
+    override_dbus_timeout = 5
+    show_indicators=false
+    alignment = "right"
+    icon_path = "/home/zwind/app/notify/icons/"
+    # icon_position = "off"
+    mouse_left_click = "open_url"
+    mouse_middle_click = "none"
+    mouse_right_click = "close_current"
+    background = "#18191C8E"
+    foreground = "#FFFFFF"
+    # default_icon = ~/app/notify/icons/notifyl.svg
+    default_icon = " "
+    skip_display = true
+    script = eww-notify
+
+
+# [urgency_low]
+#     # default_icon = ~/app/notify/icons/notifyl.svg
+#     default_icon = " "
+#     skip_display = true 
+#
+# [urgency_normal]
+#     # default_icon = ~/app/notify/icons/notifyn.svg
+#     default_icon = " "
+#     skip_display = true 
+#     # script = ~/app/bar/scripts/notify
+#
+# [urgency_critical]
+#     # default_icon = ~/app/notify/icons/notifyc.svg
+#     default_icon = " "
+#     skip_display = true 

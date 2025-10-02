@@ -1,0 +1,32 @@
+[mgr]
+# Border
+border_symbol = "│"
+border_style  = { fg = "#3b4048" }
+
+[tabs]
+active   = { bg = "#98c379", fg = "#080808", bold = true }
+inactive = { bg = "#080808", fg = "gray", bold = true }
+
+sep_inner = { open = "", close = "" }
+sep_outer = { open = "", close = "" }
+
+# Mode
+[mode]
+normal_main = { bg = "#d183e8", fg = "#080808", bold =true }
+normal_alt  = { bg = "#80a0ff", fg = "#080808", bold =true  }
+
+# Select mode
+select_main = { bg = "#98c379", fg = "#080808", bold = true }
+select_alt  = { bg = "#79dac8", fg = "#080808", bold =true  }
+
+# Unset mode
+unset_main = { bg = "#e06c75", fg = "#080808", bold = true }
+unset_alt  = { bg = "#d19a66", fg = "#080808", bold =true  }
+
+[status]
+overall   = {}
+sep_left  = { open = "", close = "" }
+sep_right = { open = "", close = "" }
+
+[help]
+footer  = { fg = "#98c379" }

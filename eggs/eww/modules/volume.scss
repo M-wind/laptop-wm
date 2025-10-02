@@ -1,0 +1,45 @@
+.volume {
+  padding: $distance6;
+  background: $background;
+  border-radius: $radius8;
+}
+
+.volumebox {
+  @include transparent;
+}
+
+.volumeicon {
+  @include transparent;
+  border-radius: $radius4;
+  &:hover {
+    background: $hover;
+  }
+}
+
+.slider trough highlight {
+  background-color: $green;
+  border-radius: $radius4;
+}
+
+.slider trough {
+  background-color: $hover;
+  border-radius: 4px;
+  min-height: 4px;
+}
+
+.slider trough slider {
+  margin: -8px;
+  background-image: linear-gradient($mark, $mark);
+  border-radius: $radiusfull;
+  border-style: solid;
+  border-width: 3px;
+  border-color: $green;
+}
+
+.slider trough slider:hover {
+  border-width: 1.8px;
+}
+
+.volumetxt {
+  font-size: 1.3em;
+}

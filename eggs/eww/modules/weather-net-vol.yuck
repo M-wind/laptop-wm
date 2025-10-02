@@ -1,0 +1,33 @@
+(defpoll weather :interval "3600s"
+                 :initial {{}}
+  `eww-weather Changsha zh`)
+
+
+(defwidget weather[]
+  (box :orientation "v"
+    (box :orientation "h"
+         :space-evenly false
+         :spacing 24
+         :class "weathercard"
+      (label :text { weather["current"]["icon"] }
+             :class "weatheremoji"
+             :haligh "start")
+      (label :markup { weather["current"]["desc"] }
+             :class "weathertxt")
+      (label :text { weather["current"]["location"]["area_name"] }))))
+
+(defwindow weather-net-vol
+  :monitor 0
+  :geometry (geometry :x 6
+                      :y 0
+                      :width 320
+                      :anchor "bottom right")
+  :stacking "overlay"
+  :exclusive false
+  :focusable false
+  :namespace "bar-right-slide"
+(box :orientation "v"
+     :space-evenly false
+     :class "weather-net-vol-box"
+  (weather)
+  (volume)))

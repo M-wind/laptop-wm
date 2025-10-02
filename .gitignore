@@ -1,0 +1,4 @@
+/.deployed_cache
+/eggs/nushell/history.txt
+/**/*.log
+/eggs/clipse/clipboard_history.json

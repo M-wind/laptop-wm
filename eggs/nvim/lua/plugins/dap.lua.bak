@@ -1,0 +1,94 @@
+local dap = {
+  "mfussenegger/nvim-dap",
+  event = "VeryLazy",
+  keys = {
+    {"<F2>", function() require("dap").toggle_breakpoint() end, desc = "Toggle Breakpoint" },
+    {"<F4>", function() require("dap").terminate() end, desc = "Terminate" },
+    {"<F5>", function() require("dap").continue() end, desc = "Continue" },
+    {"<F6>", function() require("dap").step_over() end, desc = "Step Over" },
+    {"<F7>", function() require("dap").step_into() end, desc = "Step Into" },
+    {"<F8>", function() require("dap").step_out() end, desc = "Step Out" },
+    {"<F9>", function() require("dap").clear_breakpoints() end, desc = "Clear All Breakpoint" },
+  },
+  config = function()
+    -- breakpoint ui
+    local dapicons = require("utils.icons").dap
+    for name, sign in pairs(dapicons) do
+      vim.fn.sign_define(
+        name,
+        { text = sign[1], texthl = sign[2], linehl = "", numhl = "" }
+      )
+    end
+
+    local dap = require("dap")
+    -- luanguages
+    -- rust c c++
+    require("ft.rust").dap(dap)
+  end
+}
+
+local dapui = {
+  "rcarriga/nvim-dap-ui",
+  dependencies = { "mfussenegger/nvim-dap", "nvim-neotest/nvim-nio" },
+  event = "VeryLazy",
+  tag = "v4.0.0",
+  opts = {
+    element_mappings = {
+      scopes = { edit = "e", repl = "r", expand = { "l", "<2-LeftMouse>" } },
+      stacks = { open = "o", toggle = { "l", "<2-LeftMouse>" } },
+      watches = { edit = "e", repl = "r", remove = "d", expand = { "l", "<2-LeftMouse>" } },
+      breakpoints = { open = "o", toggle = { "l", "<2-LeftMouse>" } },
+    },
+    mappings = {},
+    floating = {
+      border = "rounded",
+      mappings = {
+        close = { "<C-q>", "<Esc>" },
+      },
+    },
+    layouts = {
+      {
+        elements = {
+          { id = "scopes", size = 0.25 },
+          { id = "breakpoints", size = 0.25 },
+          { id = "stacks", size = 0.25 },
+          { id = "watches", size = 0.25 },
+        },
+        position = "left",
+        size = 0.2,
+      },
+      {
+        elements = {
+          { id = "repl", size = 0.5 },
+          { id = "console", size = 0.5 },
+        },
+        position = "bottom",
+        size = 0.25
+      }
+    }
+  },
+  config = function(_, opts)
+    local dap = require("dap")
+    local dapui = require("dapui")
+    dapui.setup(opts)
+    dap.listeners.after.event_initialized["dapui_config"] = function()
+      dapui.open({})
+    end
+    dap.listeners.before.event_terminated["dapui_config"] = function()
+      dapui.close({})
+    end
+    dap.listeners.before.event_exited["dapui_config"] = function()
+      dapui.close({})
+    end
+  end,
+}
+
+local vText = {
+  "theHamsta/nvim-dap-virtual-text",
+  event = "VeryLazy",
+  opts = {
+    virt_text_pos = "eol", -- nvim >= 0.10, inline is aviaible
+  }
+}
+
+return { dap, dapui, vText }

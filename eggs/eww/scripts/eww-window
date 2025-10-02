@@ -1,0 +1,31 @@
+#!/bin/bash
+operate=$1
+windowname=$2
+
+checkActive() {
+  activewindows=$(eww active-windows)
+  flag=false
+  for window in ${activewindows}; do
+    if [[ ${window} =~ ${windowname} ]]; then
+      flag=true
+      break
+    fi
+  done
+  echo ${flag}
+}
+
+if [[ ${operate} == "check" ]]; then
+  checkActive
+elif [[ ${operate} == "toggle" ]]; then
+  if $(checkActive); then
+    eww close "${windowname}"
+  else
+    eww open "${windowname}"
+  fi
+elif [[ ${operate} == "open" ]]; then
+  eww open "${windowname}"
+elif [[ ${operate} == "close" ]]; then
+  if $(checkActive); then
+    eww close "${windowname}"
+  fi
+fi

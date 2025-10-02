@@ -1,0 +1,108 @@
+(defvar history {{"data": [[]]}})
+(defvar paused false)
+(defvar new_notify false)
+
+(defwindow notify
+  :monitor 0
+  :geometry (geometry :x 6
+                      :y 0
+                      :width 360
+                      :anchor "bottom right")
+  :stacking "overlay"
+  :exclusive false
+  :focusable false
+  :namespace "bar-right-slide"
+  (box :orientation "v"
+       :class "notifybox"
+       :space-evenly false
+    (notifyheader)
+    (notifybody)))
+
+(defwidget notifybody []
+  (literal :content {paused ? "(no-notifyitem :msg 'Now, It\\'s focus time.')" : "(_notifybody)"}))
+
+(defwidget _notifybody []
+  (literal :content { history?.["data"] == "null" || arraylength(history["data"][0]) == 0 ? "(no-notifyitem :msg 'There is no notifications at this time.')" : "(notifyitemlist)"}))
+
+(defwidget notifyitemlist []
+  (scroll :vscroll true
+          :hscroll false
+          :height 720
+    (box :orientation "v"
+         :space-evenly false
+         :spacing 12
+         :style "padding: 12px"
+      (for entry in { history["data"][0] }
+        (notifyitem :icon { entry["icon_path"]["data"] }
+                    :summary { entry["summary"]["data"] }
+                    :body { entry["body"]["data"] }
+                    :id { entry["id"]["data"] })))))
+
+(defwidget notifyheader []
+  (centerbox :orientation "h"
+             :class "notifyheader"
+    (label :text "Notifications"
+           :halign "start")
+    (eventbox :class "notifyoperate"
+              :cursor "pointer"
+              :onclick "eww-notify togglePause" 
+      (box :class "notifyoperate"
+        (image :path "icons/notifyz.svg"
+               :fill-svg { paused ? mark : white }
+               :image-width imageh)))
+    (eventbox :class "notifyoperate"
+              :cursor "pointer"
+              :halign "end"
+              :onclick { history?.["data"] == "null" || arraylength(history["data"][0]) == 0 ? "eww-window toggle notify" : "eww-notify deleteHistoryAll"}
+      (box :orientation "h"
+           :space-evenly false
+           :spacing 6
+           :class "notifyoperate"
+        (label :text "Clear All")
+        (image :path "icons/close.svg"
+               :fill-svg white
+               :image-width 20)))))
+
+(defwidget notifyitem [icon summary body id]
+  (box :orientation "v"
+      :class "notifyitem"
+      :space-evenly false
+      :spacing 12
+    (centerbox :orientation "h"
+      (image :path "icons/notify.svg"
+             :image-width 16
+             :fill-svg white
+             :halign "start")
+      (label :text summary
+             :truncate true
+             :class "titletext")
+      (eventbox :class "closebutton"
+                :cursor "pointer"
+                :halign "end"
+                :onclick "eww-notify deleteHistoryById ${id}"
+      (box :class "closebutton"
+        (image :path "icons/close.svg"
+               :fill-svg white
+               :image-width 16))))
+  (box :orientation "v"
+       :spacing { icon == "" ?  0 : 12 }
+       :space-evenly false
+    (_icon :path icon)
+    (label :text body
+           :class "bodytext"
+           :halign "start"
+           :wrap true))))
+
+(defwidget _icon [path]
+  (literal :content {path == "" ? "" : "(image :path path :image-width 312)"}))
+
+(defwidget no-notifyitem [?msg]
+  (box :orientation "v"
+       :space-evenly false
+       :spacing 12
+       :style "padding: 12px"
+    (box :class "notifyitem"
+         :height 156
+      (label :text msg
+             :class "titletext"))))
+

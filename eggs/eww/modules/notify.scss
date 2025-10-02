@@ -1,0 +1,53 @@
+.notify {
+  border-radius: $radius8;
+  background: $background
+}
+
+.notifybox {
+  @include transparent;
+  border-radius: $radius8;
+}
+
+.titletext {
+  color: $mark;
+  font-weight: bold;
+  padding: 0 $distance12;
+}
+
+.bodytext {
+  color: $white;
+}
+
+.notifyheader {
+  padding: $distance12;
+  background: $background;
+  border-top-left-radius: $radius8;
+  border-top-right-radius: $radius8;
+  color: $white;
+}
+
+.notifyoperate {
+  padding: $distance6;
+  border-radius: $radius4;
+  &:hover {
+    background: $hover;
+  }
+}
+
+.closebutton {
+  padding: $radius4;
+  border-radius: $radius4;
+  &:hover {
+    background: $hover;
+  }
+}
+
+.notifyitem {
+  padding: $distance12;
+  border-radius: $radius8;
+  background: $background;
+}
+
+.labelbox {
+  padding: $radius4 $distance12;
+}

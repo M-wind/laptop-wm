@@ -1,0 +1,13 @@
+[default] #any displayname usr hyprctl monitors
+path = "/home/zwind/background"
+duration = "30m"
+sorting = "ascending" #descending random
+mode = "center" #fit fit-border-color stretch tile
+# queue-size = 10 # path is directory sorting is randomi
+initial-transition = true
+recursive = false
+
+# [default.transition.mosaic]
+[default.transition.directional-wipe]
+direction = [-1.0, 1.0]
+

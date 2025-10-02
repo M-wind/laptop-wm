@@ -1,0 +1,46 @@
+#!/bin/bash
+
+operate=$1
+
+getHistory() {
+  history=$(dunstctl history)
+  eww update history="${history}"
+}
+
+deleteHistoryById() {
+  dunstctl history-rm "$1"
+  getHistory
+}
+
+deleteHistoryAll() {
+  dunstctl history-clear
+  getHistory
+}
+
+togglePause() {
+  dunstctl set-paused toggle
+  paused=$(dunstctl is-paused)
+  eww update paused="${paused}"
+}
+
+isNotify() {
+  eww update new_notify="$1"
+}
+
+if [[ ${operate} == "togglePause" ]]; then
+  togglePause
+elif [[ ${operate} == "deleteHistoryAll" ]]; then
+  deleteHistoryAll
+elif [[ ${operate} == "deleteHistoryById" ]]; then
+  deleteHistoryById "$2"
+elif [[ ${operate} == "init" ]]; then
+  getHistory
+elif [[ ${operate} == "view" ]]; then
+  isNotify false
+else
+  if [[ $(eww-window check notify) == true ]]; then
+    getHistory
+  else
+    isNotify true
+  fi
+fi

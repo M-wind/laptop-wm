@@ -1,0 +1,55 @@
+add_newline = true
+
+format = """
+[󰑣](bold bright-yellow) \
+$username\
+$hostname\
+$directory\
+$git_branch\
+$git_status\
+$package\
+$c\
+$conda\
+$container\
+$docker_context\
+$dotnet\
+$nodejs\
+$rust\
+$golang\
+$php\
+$java\
+$lua\
+$python\
+$time\
+$line_break\
+$character\
+"""
+
+[username]
+style_user = "yellow bold"
+style_root = "purple bold"
+format = "[$user]($style) in "
+disabled = false
+
+[hostname]
+format = '[$hostname](bold green) [󰑣](bold bright-yellow) '
+disabled = false
+
+[directory]
+style = "blue"
+format = '[$path]($style) '
+
+[character]
+format = "$symbol "
+# success_symbol = "[](bold green)"
+# error_symbol = "[](bold red)"
+success_symbol = "[](bold green)"
+error_symbol = "[](bold red)"
+
+[time]
+disabled = false
+format = "[󰔛 $time]($style)"
+time_format = "%R"
+utc_time_offset = "local"
+style = "dimmed white"
+

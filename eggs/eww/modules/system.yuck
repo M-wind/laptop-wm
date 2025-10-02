@@ -1,0 +1,35 @@
+(defwindow system
+  :monitor 0
+  :geometry (geometry :x "0%"
+                      :y "0%"
+                      :anchor "bottom center")
+  :stacking "overlay"
+  :exclusive false
+  :focusable false
+  :namespace "bar-center-popin"
+  (box :class "leftpanel" 
+       :spacing 6
+    (eventbox :height 92 
+              :width 76
+              :class "systemicon" 
+              :cursor "pointer"
+              :onclick "eww-system lock"
+      (image :path "icons/lock.svg"
+             :fill-svg white
+             :image-height 64))
+    (eventbox :height 92 
+              :width 76
+              :class "systemicon" 
+              :cursor "pointer"
+              :onclick "eww-system restart"
+      (image :path "icons/reboot.svg"
+             :fill-svg white
+             :image-height 64))
+    (eventbox :height 92 
+              :width 76
+              :class "systemicon" 
+              :cursor "pointer"
+              :onclick "eww-system poweroff"
+      (image :path "icons/poweroff.svg"
+             :fill-svg white
+             :image-height 64))))

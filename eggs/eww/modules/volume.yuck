@@ -1,0 +1,51 @@
+(defvar mute false)
+(defvar vol 100)
+
+(defwidget volume []
+  (centerbox :orientation "h"
+             :class "volumebox"
+  (hovericon :iconname { mute || vol == 0 ? "volumemute": "volumeup" }
+             :exe "eww-volume toggle")
+  (slider)
+  (box  :width 42
+        :height 42
+        :halign "end"
+    (label :text vol
+           :class "volumetxt"))))
+
+(defwidget slider []
+  (scale :width 206
+         :class "slider"
+         :min 0
+         :max 101
+         :round-digits 0
+         :onchange "eww-volume ewwadjust {}"
+         :value vol))
+
+(defwidget hovericon [iconname ?exe]
+  (eventbox :halign "start"
+            :valign "center"
+            :class "volumeicon"
+            :cursor "pointer"
+            :width 42
+            :height 42
+            :onclick exe
+    (image :path "icons/${iconname}.svg"
+      :fill-svg white
+      :image-width imageh
+      :image-height imageh)))
+
+(defwindow volume
+  :monitor 0
+  :geometry (geometry :x "50%"
+                      :y "0%"
+                      :width "320px"
+                      :height "42px"
+                      :anchor "bottom center")
+  :stacking "overlay"
+  :exclusive false
+  :focusable false
+  :namespace "bar-center-popin"
+(box :class "volume"
+     :width 320
+  (volume)))

@@ -1,0 +1,78 @@
+// .calendar {
+  // border-radius: $radius8;
+  // background: $background
+// }
+
+.calendarbox {
+  border-radius: $radius8;
+  background: $background;
+  padding: $distance12 $distance12 0 $distance12;
+}
+
+.timeweek {
+  padding: 0 $distance12;
+}
+
+.texttime {
+  font-family: TypoGraphica;
+  font-size: 56px;
+  font-weight: bold;
+  color: $white;
+}
+
+.textweek {
+  font-family: TypoGraphica;
+  font-size: 56px;
+  font-weight: bold;
+  color: $white;
+}
+
+.textdaybox {
+  margin-bottom: 6px;
+}
+
+.textday {
+  font-family: TypoGraphica;
+  font-size: 30px;
+  color: $black;
+  border-radius: 100%;
+  background: $mark;
+}
+
+.textmonth {
+  font-family: TypoGraphica;
+  font-size: 18px;
+  color: $green;
+}
+
+.textdaynext {
+  font-family: TypoGraphica;
+  font-size: 18px;
+  color: $white;
+}
+
+.cal-inner-box {
+  font-size: 1em;
+  font-family: TypoGraphica;
+}
+
+calendar {
+  padding-bottom: $distance6;
+  &:selected {
+    color: $black;
+    background-repeat: no-repeat;
+    background-position: center 0px;
+    background-image: url("icons/circle.svg");
+  }
+  &:indeterminate {
+    color: $hover;
+  }
+}
+
+calendar.header {
+  color: $white;
+}
+
+calendar.highlight {
+  color: $green;
+}

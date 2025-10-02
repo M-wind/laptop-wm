@@ -1,0 +1,70 @@
+#!/bin/bash
+
+operate=$1
+increment=$2
+volstr=$(wpctl get-volume @DEFAULT_AUDIO_SINK@)
+
+toggleMute() {
+  muted=false
+  if [[ ${volstr} =~ "MUTED" ]]; then
+    muted=true
+  fi
+  if ${muted}; then
+    wpctl set-mute @DEFAULT_AUDIO_SINK@ 0
+    eww update mute=false
+  else
+    wpctl set-mute @DEFAULT_AUDIO_SINK@ 1
+    eww update mute=true
+  fi
+}
+
+setvolume() {
+  wpctl set-volume @DEFAULT_AUDIO_SINK@ "$1"
+  eww update vol="$2"
+}
+
+adjustvol() {
+  cvol=${volstr:8:4}
+  avol=$(echo "${cvol} ${increment}" | awk '{printf("%.2f", $1+$2)}')
+  flag=$(echo "${avol}" | awk '{print($1 > 1)}')
+  if [ "${flag}" -eq 1 ]; then
+    avol=1
+  fi
+  flag=$(echo "${avol}" | awk '{print(0 > $1)}')
+  if [ "${flag}" -eq 1 ]; then
+    avol=0
+  fi
+  ewwvol=$(echo "${avol}" | awk '{printf("%.0f", $1*100)}')
+  setvolume "${avol}" "${ewwvol}"
+}
+
+volumeshow() {
+  flag=$(eww-window check volume)
+  if [[ ${flag} == "true" ]]; then
+    pkill volumeshow
+  fi
+  eww-volumeshow "${flag}"
+}
+
+if [[ ${operate} == "toggle" ]]; then
+  toggleMute
+# elif [[ ${operate} == "adjust" ]]
+# then
+#   adjustvol
+elif [[ ${operate} == "ewwadjust" ]]; then
+  vol=$(echo "${increment}" | awk '{printf("%.2f", $1/100)}')
+  setvolume "${vol}" "${increment}"
+elif [[ ${operate} == "togglebykey" ]]; then
+  toggleMute
+  volumeshow
+elif [[ ${operate} == "adjustbykey" ]]; then
+  adjustvol
+  volumeshow
+elif [[ ${operate} == "defaultbykey" ]]; then
+  setvolume 0.79 79
+  volumeshow
+else
+  cvol=${volstr:8:4}
+  ewwvol=$(echo "${cvol}" | awk '{printf("%.0f", $1*100)}')
+  eww update vol="${ewwvol}"
+fi

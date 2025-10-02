@@ -1,0 +1,26 @@
+(defvar theme "bamboo")
+(defvar themes { ["bamboo", "catppuccin", "onedarkpro", "tokyonight", "everforest", "solarized-osaka", "vscode", "wallpaper"] })
+
+(defwindow platte
+  :monitor 0
+  :geometry (geometry :x 0
+                      :y 0
+                      :anchor "bottom center")
+  :stacking "overlay"
+  :exclusive false
+  :focusable false
+  :namespace "bar-center-popin"
+  (box :orientation "v"
+       :space-evenly false
+       :class "systemiconbar"
+       :height barh
+       :spacing 6
+       :valign "center"
+       :halign "center"
+    (for entry in { themes }
+      (eventbox :cursor "pointer"
+                :class { theme == entry ? "systemiconactive" :  "systemicon" }
+                :height 36
+                :width 172
+                :onclick ' nu -c "eww-changetheme ${entry}"'
+        (label :text entry :class "plattetext")))))

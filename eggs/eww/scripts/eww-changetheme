@@ -1,0 +1,15 @@
+#!/bin/bash
+
+code="export let name = \"${1}\";"
+
+ctl=~/app/wallpaper/wpaperctl
+
+eww-window close platte
+
+if [[ ${1} == "wallpaper" ]]; then
+  wallust -q run $("${ctl}" get $("${ctl}" status | jq -R 'split(": ") | .[0]'))
+fi
+
+echo "${code}" > ~/.config/yolk/theme.rhai && yolk sync
+sleep 1
+eww update theme="${1}" && eww-volume once

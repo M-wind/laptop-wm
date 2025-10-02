@@ -1,0 +1,7 @@
+#!/bin/bash
+
+if [[ $1 == "false" ]]; then
+  eww open volume
+fi
+sleep 3
+eww close volume

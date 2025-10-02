@@ -1,0 +1,62 @@
+(defwindow calendar
+  :monitor 0
+  :geometry (geometry :x 6
+                      :y 0
+                      :width 304
+                      :anchor "bottom right")
+  :stacking "overlay"
+  :exclusive false
+  :focusable false
+  :namespace "bar-right-slide"
+  (box :orientation "v"
+       :class "calendarbox"
+    (time)))
+
+(defwidget time []
+  (box :orientation "v"
+       :space-evenly false
+       :spacing 12
+       :halign "center"
+       :valign "center"
+       :width 280
+    (box :orientation "h"
+         :class "timeweek"
+      (label :text {formattime(EWW_TIME, "%R")}
+        :halign "start"
+        :class "texttime")
+      (label :text {formattime(EWW_TIME, "%a")}
+        :halign "end"
+        :class "textweek")) 
+    (box :orientation "h"
+         :space-evenly false
+         :spacing 12
+         :halign "center"
+         :class "textdaybox"
+      (label :text {formattime(EWW_TIME, "%d")}
+             :width 52
+             :height 52
+             :class "textday")
+      (box :orientation "v"
+           :space-evenly false
+           :valign "center"
+        (box :orientation "h"
+             :space-evenly false
+             :spacing 12
+          (label :text {formattime(EWW_TIME, "%b")}
+                 :class "textmonth")
+          (label :text {formattime(EWW_TIME, "%Y")}
+                 :class "textmonth"))
+        (box :orientation "h"
+             :space-evenly false
+             :spacing 18
+          (label :text {formattime(EWW_TIME + 86400, "%d")}
+                 :class "textdaynext")
+          (label :text {formattime(EWW_TIME + 86400 * 2, "%d")}
+                 :class "textdaynext")
+          (label :text {formattime(EWW_TIME + 86400 * 3, "%d")}
+                 :class "textdaynext")
+          (label :text {formattime(EWW_TIME + 86400 * 4, "%d")}
+                 :class "textdaynext"))))
+    (box :class "cal-inner-box"
+      (calendar :show-heading true))))
+        

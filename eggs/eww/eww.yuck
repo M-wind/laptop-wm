@@ -1,0 +1,202 @@
+(include "modules/colors.yuck")
+(include "modules/calendar.yuck")
+(include "modules/notify.yuck")
+(include "modules/volume.yuck")
+(include "modules/platte.yuck")
+(include "modules/system.yuck")
+(include "modules/weather-net-vol.yuck")
+
+(defvar currentworkspace 1)
+(defvar activewindow "arch")
+(defvar netname "wlp2s0")
+(defvar previewinfo {{}})
+(defvar barh 44)
+(defvar widgeth 32)
+(defvar imageh 24)
+(defvar applistonce true)
+;; (defpoll applist :interval "1s"
+;;                  :initial {[]}
+;;                  :run-while applistonce
+;;   `eww-minimize getAppListOnce`)
+(defvar applist {[]})
+
+
+;; left
+(defwidget workspaces []
+  (box :orientation "h"
+       :halign "start"
+       :class "leftpanel"
+       :valign "center"
+       :height barh
+       :spacing 6
+    (workspace :number 1)
+    (workspace :number 2)
+    (workspace :number 3)
+    (workspace :number 4)
+    (workspace :number 5)
+    (workspace :number 6)))
+
+(defwidget workspace [number]
+  (eventbox :orientation "h"
+            :class { currentworkspace == number ? "bariconactive" : "baricon" }
+            :width widgeth
+            :cursor "pointer"
+            :onclick { currentworkspace == number ? "" : "eww-workspace change ${number}" }
+            (image :path "icons/workspace${number}.svg"
+                   :fill-svg white
+                   :image-width imageh 
+                   :image-height imageh)))
+
+(defwidget networkdown []
+  (box :class "leftpanel"
+       :valign "center"
+       :height barh
+    (box :orientation "h"
+         :space-evenly false
+         :spacing 6
+         :height widgeth
+      (image :path "icons/download.svg" :image-width imageh :fill-svg white)
+      (label :text {round(EWW_NET[netname]["NET_DOWN"] / 1024, 2) > 1000 ? round(EWW_NET[netname]["NET_DOWN"] / 1024 / 1024, 2) + "MB/s" : round(EWW_NET[netname]["NET_DOWN"] / 1024, 2) + " KB/s"}
+             :class "networktext"))))
+
+(defwidget networkup []
+  (box :class "leftpanel"
+       :valign "center"
+       :height barh
+    (box :orientation "h"
+         :space-evenly false
+         :spacing 6
+         :height widgeth
+    (image :path "icons/upload.svg" :image-width imageh :fill-svg white)
+    (label :text {round(EWW_NET[netname]["NET_UP"] / 1024, 2) > 1000 ? round(EWW_NET[netname]["NET_UP"] / 1024 / 1024, 2) + " MB/s" : round(EWW_NET[netname]["NET_UP"] / 1024, 2) + " KB/s"}
+           :class "networktext"))))
+
+;; center 
+(defwindow preview
+  :monitor 0
+  :geometry (geometry :x "0%"
+                      :y "0%"
+                      :anchor "bottom center")
+  :stacking "overlay"
+  :exclusive false
+  :focusable false
+  :namespace "bar-center-popin"
+  (box :class "" 
+    (image :path { previewinfo["path"] }
+           :image-width 288
+           :image-height 192)))
+
+;; right
+(defwidget time_notify []
+  (box :orientation "h"
+       :valign "center"
+       :class "rightpanel"
+       :height barh
+       :space-evenly false
+    (eventbox :orientation "h"
+              :cursor "pointer"
+              :onclick "eww-window toggle calendar"
+      (box :orientation "v"
+           :halign "end"
+           :valign "center"
+           :width 88
+           :space-evenly false
+        (label :text {formattime(EWW_TIME, "%R")}
+               :halign "end"
+               :class "timenotifytext")
+        (label :text {formattime(EWW_TIME, "%Y/%m/%d")}
+               :halign "end"
+               :class "timenotifytext")))
+    (eventbox :orientation "h"
+              :width 36
+              :cursor "pointer"
+              :class "notifyicon"
+              :onclick { paused ? "eww-window toggle notify" : "eww-notify init; eww-window toggle notify; eww update new_notify=false" }
+      (image :path { paused ? "icons/notifyz.svg" : new_notify ? "icons/notifybadge.svg" : "icons/notify.svg" }
+             :fill-svg { paused || new_notify ? mark : white  }
+             :image-width imageh
+             :image-height imageh))))
+
+(defwidget wether-net-vol []
+  (eventbox :orientation "h"
+            :cursor "pointer"
+            :onclick "eww-window toggle weather-net-vol"
+    (box :orientation "h"
+         :valign "center"
+         :class "rightpanel rigthpanel-padding"
+         :height barh
+         :space-evenly false
+         :spacing 6
+      (label :text { weather["current"]["icon"] + " " + weather["current"]["temp"] }
+             :class "wethertext")
+      (image :path { mute || vol == 0 ? "icons/volumemute.svg" : "icons/volumeup.svg" }
+             :fill-svg white
+             :image-width imageh
+             :image-height imageh)
+      (image :path "icons/ethernet.svg"
+             :fill-svg white
+             :image-width imageh
+             :image-height imageh))))
+
+(defwidget app [address icon minimized]
+  (eventbox :cursor "pointer"
+            :width widgeth
+            :height widgeth
+            :class { address == activewindow ? "systemiconactive" : "systemicon" }
+            :onclick "eww-minimize minimize ${address}"
+            ;; :onhover 'nu -c "eww-preview open ${address}"'
+            ;; :onhoverlost "eww-preview close"
+    (overlay
+      (image :path "icons/${icon}.svg"
+             :image-width imageh)
+      (image :path { minimized ? "icons/badge.svg" : "" }
+             :fill-svg mark
+             :image-width 32 ))))
+
+;; all
+(defwindow bar
+  :monitor 0
+  :geometry (geometry :x "0%"
+                      :y "0%"
+                      :width "100%"
+                      :height 56
+                      :anchor "bottom center")
+  :stacking "fg"
+  :exclusive true
+  :focusable false
+  :namespace "bar"
+  (centerbox :orientation "h"
+    (box :orientation "h"
+         :space-evenly false
+      (workspaces)
+      (networkup)
+      (networkdown))
+    (box :orientation "h"
+         :space-evenly false
+         :class "systemiconbar"
+         :height barh
+         :spacing 6
+         :valign "center"
+         :halign "center"
+      (eventbox :cursor "pointer"
+                :width widgeth
+                :height widgeth
+                :class "systemicon"
+                :onclick "eww-window toggle platte"
+        (image :path "icons/platte.svg" :fill-svg mark :image-width imageh))
+      (eventbox :cursor "pointer"
+                :width widgeth
+                :height widgeth
+                :class "systemicon"
+                :onclick "eww-window toggle system"
+        (image :path "icons/arch.svg"
+               :image-width imageh))
+      (for entry in { applist }
+        (app :icon { entry["class"] }
+             :address { entry["address"] }
+             :minimized { entry["minimized"] })))
+    (box :orientation "h"
+         :space-evenly false
+         :halign "end"
+      (wether-net-vol)
+      (time_notify))))

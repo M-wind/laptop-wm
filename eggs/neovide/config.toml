@@ -1,0 +1,14 @@
+tabs = false
+idle = true
+fork = false
+frame = "none"
+
+[font]
+normal = ["JetBrainsMono NFM", "LXGW WenKai Mono GB Screen"]
+size = 13
+
+[box-drawing]
+mode = "native"
+
+[box-drawing.sizes]
+default = [1, 3]

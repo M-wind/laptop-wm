@@ -1,0 +1,24 @@
+/* {# replace_re(`rgba\(.*\)`, hex_to_hext(theme.colors.background, "0.56")) #} */
+$background: rgba(0, 20, 25, 0.56);
+/* {# replace_re(`rgba\(.*\)`, hex_to_hext(theme.colors.white, "0.1")) #} */
+$hover: rgba(158, 171, 172, 0.1);
+/* {# replace_between(` `, `;`, theme.colors.white) #} */
+$white: #9eabac;
+/* {# replace_between(` `, `;`, theme.colors.green) #} */
+$green: #849900;
+/* {# replace_between(` `, `;`, theme.colors.black) #} */
+$black: #001014;
+/* {# replace_between(` `, `;`, theme.colors.magenta) #} */
+$mark: #d23681;
+
+$radius4: 4px;
+$radius8: 8px;
+$radiusfull: 100%;
+
+$distance6: 6px;
+$distance12: 12px;
+
+@mixin transparent {
+  background: transparent;
+}
+

@@ -1,0 +1,60 @@
+#!/bin/bash
+
+operate=$1
+address=$2
+
+special_workspacename="special:magic"
+
+get_currentworkspace_id() {
+  workspacename=$(hyprctl activeworkspace -j | jq ".id")
+  echo "${workspacename}"
+}
+
+is_minimize() {
+  flag=$(hyprctl clients -j | jq ".[] | select(.address==\"${1}\") | .workspace.name==\"${special_workspacename}\"")
+  echo "${flag}"
+}
+
+get_app_list() {
+  workspaceid=$(get_currentworkspace_id)
+  applist=$(hyprctl clients -j | jq "[.[] | .minimized=.workspace.name==\"${special_workspacename}\" | select(.workspace.id==${workspaceid} or .workspace.name==\"${special_workspacename}\")] | sort_by(.pid)")
+  eww update applist="${applist}"
+  echo "${applist}"
+}
+
+minimize() {
+  if [[ $(is_minimize "${1}") == true ]]; then
+    hyprctl dispatch movetoworkspacesilent $(get_currentworkspace_id),address:"${1}"
+    hyprctl dispatch focuswindow address:"${1}"
+  else
+    hyprctl dispatch movetoworkspacesilent "${special_workspacename}",address:"${1}"
+  fi
+  get_app_list
+}
+
+reminimize() {
+  address=$(get_app_list | jq "[.[] | select(.minimized==true)] | .[0] | .address")
+  echo "${address}"
+}
+
+if [[ ${operate} == "minimize" ]]; then
+  minimize "${address}"
+elif [[ ${operate} == "minimizecurrent" ]]; then
+  current=$(hyprctl -j activewindow | jq ".address")
+  minimize "${current:1:14}"
+elif [[ ${operate} == "reminimize" ]]; then
+  current=$(reminimize)
+  if [[ ${current} != "null" ]]; then
+    minimize "${current:1:14}"
+    hyprctl dispatch focuswindow address:"${current:1:14}"
+  fi
+elif [[ ${operate} == "getAppList" ]]; then
+  get_app_list
+elif [[ ${operate} == "isminimize" ]]; then
+  is_minimize "${address}"
+elif [[ ${operate} == "getAppListOnce" ]]; then
+  get_app_list
+  if [[ $(eww get applistonce) == true ]]; then
+    eww update applistonce=false
+  fi
+fi

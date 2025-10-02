@@ -1,0 +1,65 @@
+[general]
+ipc_socket = false
+
+[window]
+padding = { x = 8, y = 3 }
+decorations = "None"
+decorations_theme_variant = "None"
+opacity = 0.69
+class = { instance = "alacritty", general = "alacritty" }
+
+[font]
+normal = { style = "Bold" }
+size = 13
+builtin_box_drawing = true
+
+[cursor]
+style = { shape = "Beam" }
+unfocused_hollow = true
+thickness = 0.15
+
+[terminal]
+osc52 = "CopyPaste"
+
+[hints]
+alphabet = "abcdefghijklmnopqrstuvwxyz;"
+
+[keyboard]
+bindings = [
+  { key = "F", mods = "Control|Shift", action = "None" },
+  { key = "H", mods = "Control|Shift", action = "SearchForward" },
+  { key = "D", mods = "Control", mode = "Search", action = "SearchFocusPrevious" },
+  { key = "F", mods = "Control", mode = "Search", action = "SearchFocusNext" },
+  { key = "D", mods = "Control", mode = "Vi", action = "SearchPrevious" },
+  { key = "F", mods = "Control", mode = "Vi", action = "SearchNext" },
+  { key = "D", mods = "Control", action = "ScrollLineUp" },
+  { key = "F", mods = "Control", action = "ScrollLineDown" },
+]
+
+[debug]
+prefer_egl = true
+
+[colors.primary]
+background = '#001419' # {< replace_color(theme.colors.background) >}
+foreground = '#839395' # {< replace_color(theme.colors.foreground) >}
+
+[colors.normal]
+black = '#001014' # {< replace_color(theme.colors.black) >}
+red = '#db302d' # {< replace_color(theme.colors.red) >}
+green = '#849900' # {< replace_color(theme.colors.green) >}
+yellow = '#b28500' # {< replace_color(theme.colors.yellow) >}
+blue = '#268bd3' # {< replace_color(theme.colors.blue) >}
+magenta = '#d23681' # {< replace_color(theme.colors.magenta) >}
+cyan = '#29a298' # {< replace_color(theme.colors.cyan) >}
+white = '#9eabac' # {< replace_color(theme.colors.white) >}
+
+[colors.bright]
+black = '#001419' # {< replace_color(theme.colors.bright_black) >}
+red = '#db302d' # {< replace_color(theme.colors.bright_red) >}
+green = '#849900' # {< replace_color(theme.colors.bright_green) >}
+yellow = '#b28500' # {< replace_color(theme.colors.bright_yellow) >}
+blue = '#268bd3' # {< replace_color(theme.colors.bright_blue) >}
+magenta = '#d23681' # {< replace_color(theme.colors.bright_magenta) >}
+cyan = '#29a298' # {< replace_color(theme.colors.bright_cyan) >}
+white = '#839395' # {< replace_color(theme.colors.bright_white) >}
+

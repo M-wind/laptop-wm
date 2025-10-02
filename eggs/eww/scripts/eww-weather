@@ -1,0 +1,8 @@
+#!/bin/bash
+location=$1
+lang=$2
+
+result=$(wttrbar --location "${location}" --lang "${lang}")
+# result=$(wttrbar --location ${location})
+
+echo "${result}"

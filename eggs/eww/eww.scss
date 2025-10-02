@@ -1,0 +1,103 @@
+@import "modules/base.scss";
+@import "modules/calendar.scss";
+@import "modules/notify.scss";
+@import "modules/volume.scss";
+@import "modules/weather-net-vol.scss";
+
+* {
+  all:unset;
+}
+
+.bar {
+  @include transparent;
+}
+
+.leftpanel {
+  background: $background;
+  border-radius: $radius4;
+  padding: $distance6;
+  margin-left: $distance6;
+}
+
+.leftpanelhover {
+  &:hover {
+    background: $background;
+  }
+}
+
+@mixin icon($theme: $mark) {
+  background: $theme;
+  border-radius: $radius4;
+}
+
+.baricon {
+  &:hover {
+    @include icon
+  }
+}
+
+.bariconactive {
+  @include icon
+}
+
+.rightpanel {
+  background: $background;
+  border-radius: $radius4;
+  margin-right: $distance6;
+}
+
+.rigthpanel-padding {
+  padding: $distance6;
+}
+
+.notifyicon {
+  &:hover {
+    // @include icon($theme: $hover )
+  }
+}
+
+.timenotifytext {
+  font-size: 13px;
+  font-weight: bold;
+  color: $white;
+}
+
+.networktext {
+  font-family: monospace;
+  font-weight: bold;
+  font-size: 1.1rem;
+  color: $white;
+}
+
+.systemiconbar {
+   background: $background;
+   border-radius: $radius4;
+   padding: $distance6;
+}
+
+.systemicon {
+  background: $background;
+  border-radius: $radius4;
+  &:hover {
+    background: $hover
+  }
+}
+
+.systemiconactive {
+  background: $mark;
+  border-radius: $radius4;
+}
+
+.wethertext {
+  font-weight: bold;
+  font-size: 1.1rem;
+  font-family: monospace;
+  color: $white;
+}
+
+.plattetext {
+  color: $white;
+  font-weight: bold;
+  font-size: 1.1rem;
+  font-family: monospace;
+}
