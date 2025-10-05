@@ -4,3 +4,9 @@
 	bare = false
 	logallrefupdates = true
 	worktree = /home/zwind/.config/yolk
+[remote "origin"]
+	url = https://github.com/M-wind/laptop-wm.git
+	fetch = +refs/heads/*:refs/remotes/origin/*
+[branch "main"]
+	remote = origin
+	merge = refs/heads/main

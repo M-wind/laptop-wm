@@ -1,0 +1,9 @@
+#!/bin/bash
+
+pid=$(pidof sing-box)
+
+if [[ -n "${pid}" ]]; then
+  kill -9 "${pid}"  
+else
+  /home/zwind/app/sing-box/sing-box -c /home/zwind/app/sing-box/config.json -D /home/zwind/app/sing-box/data/ run
+fi

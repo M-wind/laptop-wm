@@ -2,3 +2,5 @@
 /eggs/nushell/history.txt
 /**/*.log
 /eggs/clipse/clipboard_history.json
+/.git
+/.yolk_git

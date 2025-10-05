@@ -6,6 +6,7 @@
 (include "modules/system.yuck")
 (include "modules/weather-net-vol.yuck")
 
+(defvar touchpad 1)
 (defvar currentworkspace 1)
 (defvar activewindow "arch")
 (defvar netname "wlp2s0")
