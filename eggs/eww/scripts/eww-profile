@@ -1,0 +1,19 @@
+#!/bin/bash
+
+modes='[{"current":"Performance","next":"Balanced"},{"current":"Balanced","next":"Quiet"},{"current":"Quiet","next":"Performance"}]'
+
+mode=$(asusctl profile -p)
+mode=(${mode})
+mode="${mode[6]}"
+
+next=$(echo "${modes}" | jq -r ".[] | select(.current==\"${mode}\") | .next")
+
+asusctl profile -P "${next}"
+
+eww update profile="${next}"
+
+flag=$(eww-window check profile)
+if [[ ${flag} == "true" ]]; then
+  pkill -f eww-profileshow
+fi
+eww-profileshow "${flag}"

@@ -1,5 +1,6 @@
 #!/bin/bash
 
+operate=$1
 currentstate=$(eww get touchpad)
 
 if [[ ${currentstate} -eq 1 ]]; then
@@ -8,4 +9,16 @@ if [[ ${currentstate} -eq 1 ]]; then
 else
   hyprctl keyword "device[elan1201:00-04f3:3098-touchpad]:enabled" 1
   eww update touchpad=1
+fi
+
+touchpadshow() {
+  flag=$(eww-window check touchpad)
+  if [[ ${flag} == "true" ]]; then
+    pkill -f eww-touchpadshow
+  fi
+  eww-touchpadshow "${flag}"
+}
+
+if [[ ${operate} == "show" ]]; then
+  touchpadshow
 fi

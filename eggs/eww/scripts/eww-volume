@@ -41,7 +41,7 @@ adjustvol() {
 volumeshow() {
   flag=$(eww-window check volume)
   if [[ ${flag} == "true" ]]; then
-    pkill volumeshow
+    pkill -f eww-volumeshow
   fi
   eww-volumeshow "${flag}"
 }

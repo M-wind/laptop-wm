@@ -1,0 +1,7 @@
+#!/bin/bash
+
+if [[ $1 == "false" ]]; then
+  eww open touchpad
+fi
+sleep 2
+eww close touchpad

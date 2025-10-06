@@ -4,13 +4,14 @@
 (include "modules/volume.yuck")
 (include "modules/platte.yuck")
 (include "modules/system.yuck")
+(include "modules/touchpad.yuck")
+(include "modules/profile.yuck")
 (include "modules/weather-net-vol.yuck")
 
-(defvar touchpad 1)
 (defvar currentworkspace 1)
 (defvar activewindow "arch")
 (defvar netname "wlp2s0")
-(defvar previewinfo {{}})
+;; (defvar previewinfo {{}})
 (defvar barh 44)
 (defvar widgeth 32)
 (defvar imageh 24)
@@ -73,19 +74,19 @@
            :class "networktext"))))
 
 ;; center 
-(defwindow preview
-  :monitor 0
-  :geometry (geometry :x "0%"
-                      :y "0%"
-                      :anchor "bottom center")
-  :stacking "overlay"
-  :exclusive false
-  :focusable false
-  :namespace "bar-center-popin"
-  (box :class "" 
-    (image :path { previewinfo["path"] }
-           :image-width 288
-           :image-height 192)))
+;; (defwindow preview
+;;   :monitor 0
+;;   :geometry (geometry :x "0%"
+;;                       :y "0%"
+;;                       :anchor "bottom center")
+;;   :stacking "overlay"
+;;   :exclusive false
+;;   :focusable false
+;;   :namespace "bar-center-popin"
+;;   (box :class "" 
+;;     (image :path { previewinfo["path"] }
+;;            :image-width 288
+;;            :image-height 192)))
 
 ;; right
 (defwidget time_notify []

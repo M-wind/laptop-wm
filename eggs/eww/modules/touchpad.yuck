@@ -1,0 +1,17 @@
+(defvar touchpad 1)
+
+(defwindow touchpad
+  :monitor 0
+  :geometry (geometry :x 0
+                      :y 0
+                      :width 128
+                      :height 128
+                      :anchor "center")
+  :stacking "overlay"
+  :exclusive false
+  :focusable false
+  :namespace "centerOption"
+  (box :class "leftpanel"
+    (image :path { touchpad == 1 ? "icons/touchpadon.svg" : "icons/touchpadoff.svg" }
+           :image-width 96)))
+

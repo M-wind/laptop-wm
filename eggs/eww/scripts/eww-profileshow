@@ -1,0 +1,7 @@
+#!/bin/bash
+
+if [[ $1 == "false" ]]; then
+  eww open profile
+fi
+sleep 2
+eww close profile

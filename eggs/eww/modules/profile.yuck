@@ -1,0 +1,17 @@
+(defvar profile "")
+
+(defwindow profile
+  :monitor 0
+  :geometry (geometry :x 0
+                      :y 0
+                      :width 128
+                      :height 128
+                      :anchor "center")
+  :stacking "overlay"
+  :exclusive false
+  :focusable false
+  :namespace "centerOption"
+  (box :class "leftpanel"
+    (image :path "icons/${profile}.svg"
+           :image-width 96)))
+

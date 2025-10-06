@@ -18,6 +18,7 @@ $env.RUSTUP_UPDATE_ROOT = "https://mirrors.aliyun.com/rustup/rustup"
 $env.LIBSEAT_BACKEND = "logind"
 $env.WINEPREFIX = "/home/zwind/game/.wine"
 $env.WINEDEBUG = "-all"
+$env.JAVA_HOME = "/home/zwind/language/java"
 
 $env.DOTNET_ROOT = "/home/zwind/language/dotnet"
 
@@ -51,6 +52,7 @@ $env.PATH = (
     | prepend ($env.HOME | path join language bun bin)
     | prepend ($env.DOTNET_ROOT)
     | prepend ($env.HOME | path join .config eww scripts)
+    | prepend ($env.JAVA_HOME | path join bin)
     | uniq
 )
 
