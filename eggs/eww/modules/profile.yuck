@@ -10,8 +10,8 @@
   :stacking "overlay"
   :exclusive false
   :focusable false
-  :namespace "centerOption"
-  (box :class "leftpanel"
+  :namespace "center-popin"
+  (box :class "centerpanel"
     (image :path "icons/${profile}.svg"
            :image-width 96)))
 

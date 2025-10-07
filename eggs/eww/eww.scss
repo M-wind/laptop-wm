@@ -19,6 +19,14 @@
   margin-left: $distance6;
 }
 
+.centerpanel {
+  background: $background;
+  border-radius: $radius8;
+  padding: $distance6;
+  margin-left: $distance6;
+}
+
+
 .leftpanelhover {
   &:hover {
     background: $background;

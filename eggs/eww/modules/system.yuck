@@ -6,7 +6,7 @@
   :stacking "overlay"
   :exclusive false
   :focusable false
-  :namespace "bar-center-popin"
+  :namespace "center-popin"
   (box :class "leftpanel" 
        :spacing 6
     (eventbox :height 92 

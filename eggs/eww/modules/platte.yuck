@@ -9,7 +9,7 @@
   :stacking "overlay"
   :exclusive false
   :focusable false
-  :namespace "bar-center-popin"
+  :namespace "center-popin"
   (box :orientation "v"
        :space-evenly false
        :class "systemiconbar"

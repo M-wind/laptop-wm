@@ -45,7 +45,7 @@
   :stacking "overlay"
   :exclusive false
   :focusable false
-  :namespace "bar-center-popin"
+  :namespace "center-popin"
 (box :class "volume"
      :width 320
   (volume)))
